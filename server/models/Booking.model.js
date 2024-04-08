@@ -7,6 +7,10 @@ const bookingSchema = new Schema({
      confirmationId: {
         type: String,   
      },
+     contact: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+        },
      payment: {
       id: {
          type: Number,    
@@ -15,21 +19,8 @@ const bookingSchema = new Schema({
          type: String,
          enum: ["creditCard"]
      },
-     contact: {
-      phoneNumber: {
-         type: String,
-         match: /^[+][1-9][0-9]{4,18}$/,
-         minLength: 6,
-         maxLength: 20,
-      },
-      email: {
-         type: String,
-         // match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$/,
-         match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-         minLength: 3,
-         maxLength: 90,
-      },
-     },
+    
+     
      card: {
          enum: ["MasterCard", "Visa", "American Express", "Carte Aurore", "Maestro"],
          vendorCode: {

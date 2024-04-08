@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const bookingModel = require("../models/Booking.model");
-const { isAuthenticated } = require("../middleware/jwt.middleware");
+// const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 // post route to create a new booking
 router.post("/bookingId", async (req,res) => {
@@ -16,7 +16,7 @@ router.post("/bookingId", async (req,res) => {
 });
 
 // route to find and update a booking by Id
-router.put("/booking/:bookingId", async (req, res) => {
+router.put("/:bookingId", async (req, res) => {
     const { bookingId } = req.params;
     try {
         const updatedBooking = await bookingModel.findByIdAndUpdate(bookingId, req.body, { new: true, });
@@ -34,9 +34,9 @@ router.put("/booking/:bookingId", async (req, res) => {
 
 // route to delete a booking
 
-router.delete("/booking/:bookingId", async (req, res) => {
+router.delete("/:bookingId", async (req, res) => {
     try{
-        const deletedBooking = await bookingModel.findByIdAndDelete(req.params.Id);
+        const deletedBooking = await bookingModel.findByIdAndDelete(req.params.bookingId);
         if (!deletedBooking) {
             res.status(404).json({ message: "Booking not found" });
         } else {
@@ -50,7 +50,7 @@ router.delete("/booking/:bookingId", async (req, res) => {
 
 // route to find a booking by an Id
 
-router.get("/booking/:bookingId", isAuthenticated, async (req, res) => {
+router.get("/:bookingId", async (req, res) => {
     try {
         const bookingId = req.params.id;
         const booking = await bookingModel.findById(bookingId);

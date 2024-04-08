@@ -8,8 +8,9 @@ const mongoose = require("mongoose");
 
 
 //Models goes here
-
-
+const BookingModel = require("./models/Booking.model");
+const HomeModel = require("./models/Home.model");
+const ReviewModel = require("./models/Review.model");
 
 
 //Initialize Express app
@@ -42,13 +43,18 @@ const authroutes = require("./routes/auth.routes");
 app.use('/auth', authroutes)
 
 const userRoute = require("./routes/user.routes");
-app.use('/userId', userRoute)
+app.use('/user', userRoute)
 
 const bookingRoute = require("./routes/booking.routes");
 app.use('/booking', bookingRoute);
 
 const homeRoute = require("./routes/home.routes");
 app.use('/home', homeRoute);
+
+const reviewRoute = require("./routes/review.routes");
+app.use('/review', reviewRoute);
+
+
 
 //start the server
 app.listen(PORT, () => {

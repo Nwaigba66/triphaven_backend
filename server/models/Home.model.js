@@ -21,7 +21,11 @@ const homeSchema = new Schema ({
     },
     longitude: {
         type: Number
-    }
+    },
+    contact: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
 
 })
 

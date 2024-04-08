@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const homeModel = require("../models/Home.model");
-const { isAuthenticated } = require("../middleware/jwt.middleware");
+// const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 // post route to create a new booking
 router.post("/homeId", async (req,res) => {
@@ -16,8 +16,8 @@ router.post("/homeId", async (req,res) => {
 });
 
 // route to find and update a booking by Id
-router.put("/home/:homeId", async (req, res) => {
-    const { homeIdId } = req.params;
+router.put("/:homeId", async (req, res) => {
+    const { homeId } = req.params;
     try {
         const updatedHome = await homeModel.findByIdAndUpdate(homeId, req.body, { new: true, });
         if (!updatedHome) {
@@ -34,11 +34,13 @@ router.put("/home/:homeId", async (req, res) => {
 
 // route to delete a booking
 
-router.delete("/home/:homeId", async (req, res) => {
+router.delete("/:homeId", async (req, res) => {
     try{
-        const deletedHome = await homeModel.findByIdAndDelete(req.params.Id);
+        const deletedHome = await homeModel.findByIdAndDelete(req.params.homeId);
+        console.log("home deleted", deletedHome);
         if (!deletedHome) {
             res.status(404).json({ message: "Room not found" });
+           
         } else {
             res.status(204).send();
         }
@@ -50,7 +52,7 @@ router.delete("/home/:homeId", async (req, res) => {
 
 // route to find a booking by an Id
 
-router.get("/home/:homeId", isAuthenticated, async (req, res) => {
+router.get("/:homeId", async (req, res) => {
     try {
         const homeId = req.params.id;
         const home = await homeModel.findById(homeId);
