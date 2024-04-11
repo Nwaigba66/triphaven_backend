@@ -1,13 +1,28 @@
 const { Schema, model } = require("mongoose");
 
 const homeSchema = new Schema ({
-    id: { 
+    guest: { 
         type: String
     },
     name: { 
         type: String
     },
-    imageurl: { 
+    city: { 
+        type: String
+    },
+    state: { 
+        type: String
+    },
+    country: { 
+        type: String
+    },
+    imageUrl: { 
+        type: String
+    },
+    availableUnits: { 
+        type: Number
+    },
+    wifi: { 
         type: String
     },
     price: {
@@ -21,6 +36,13 @@ const homeSchema = new Schema ({
     },
     longitude: {
         type: Number
+    },
+    laundry: {
+        type: String
+    },
+
+    rating: {
+        type: String
     },
     contact: {
         type: Schema.Types.ObjectId,

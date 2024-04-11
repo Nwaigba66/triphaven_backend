@@ -4,6 +4,13 @@ const bookingSchema = new Schema({
     booking: {
       type: String,
     },
+    checkIn: {
+        type: Date,
+        default: Date.now
+      },
+      checkOut: {
+        type: Date,
+      },
      confirmationId: {
         type: String,   
      },
@@ -20,7 +27,6 @@ const bookingSchema = new Schema({
          enum: ["creditCard"]
      },
     
-     
      card: {
          enum: ["MasterCard", "Visa", "American Express", "Carte Aurore", "Maestro"],
          vendorCode: {

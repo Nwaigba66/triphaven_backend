@@ -12,16 +12,19 @@ const reviewSchema = new Schema({
         required: true
     },
     rating: {
-        type: Number,
+        type: String,
         required: true,
-        min: 1,
-        max: 5
+       enum: ["⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐", "⭐⭐⭐⭐⭐"]
     },
     comment: {
         type: String,
         required: true
     },
     createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
         type: Date,
         default: Date.now
     }

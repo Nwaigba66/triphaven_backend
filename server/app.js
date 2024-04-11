@@ -12,10 +12,15 @@ const BookingModel = require("./models/Booking.model");
 const HomeModel = require("./models/Home.model");
 const ReviewModel = require("./models/Review.model");
 
-
+const FRONTEND_URL = process.env.ORIGIN || "http://localhost:5173";
 //Initialize Express app
 const app = express();
-
+// controls a very specific header to pass headers from the frontend
+app.use(
+  cors({
+    origin: [FRONTEND_URL],
+  })
+);
 
 //Initialise Middleware
 app.use(logger("dev"));

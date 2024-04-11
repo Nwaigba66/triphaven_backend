@@ -4,7 +4,7 @@ const homeModel = require("../models/Home.model");
 // const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 // post route to create a new booking
-router.post("/homeId", async (req,res) => {
+router.post("/", async (req,res) => {
     try {
        const newHome = await homeModel.create(req.body);
             res.status(201).json(newHome);
@@ -23,7 +23,7 @@ router.put("/:homeId", async (req, res) => {
         if (!updatedHome) {
             res.status(404).json({ errorMessage: "Hotel not found" });
         } else {
-            res.status(200).json({message: "updated booking", updatedHome });
+            res.status(200).json({message: "updated home", updatedHome });
         }
 
     } catch (err) {
@@ -50,17 +50,27 @@ router.delete("/:homeId", async (req, res) => {
     }
 })
 
+router.get("/allhomes", async  (req, res) =>{
+    try{
+        const allhomes = await homeModel.find();
+        res.status(200).json(allhomes)
+    }catch(err){
+        console.log(err)
+        res.status(500).json({message: "internal server error", err})
+    }
+})
+
 // route to find a booking by an Id
 
 router.get("/:homeId", async (req, res) => {
     try {
-        const homeId = req.params.id;
+        const homeId = req.params.homeId;
         const home = await homeModel.findById(homeId);
         if(!home){
-            res.status(404).json({ message: "Room not found"});
+            res.status(400).json({ message: "Room not found"});
         }
         else {
-            res.status(200).json({ message: "Room found"});
+            res.status(200).json(home);
         }
 
     } catch (err) {
@@ -68,4 +78,6 @@ router.get("/:homeId", async (req, res) => {
         res.status(500).json({ message: "Server error", error: err.message});
     }
 })
+
+
 module.exports = router;

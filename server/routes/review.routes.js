@@ -53,7 +53,7 @@ router.delete("/:reviewId", async (req, res) => {
 
 router.get("/:reviewId", async (req, res) => {
     try {
-        const reviewId = req.params.reviewsId;
+        const reviewId = req.params.reviewId;
         const ReviewModel = await ReviewModel.findById(reviewId);
         if(!reviews){
             res.status(404).json({ message: "Reviews not found"});
@@ -67,5 +67,26 @@ router.get("/:reviewId", async (req, res) => {
 });
 
 // get all reviews
-router.get("/reviews")
+router.get('/reviews', async (req, res) => {
+    try {
+        const allReviews = await ReviewModel.find(allReviews);
+        res.status(200).json(allReviews);
+
+    } catch(err) {
+        res.status(505).json({erormessage: "Internal server error" })
+        console.log(err)
+    }
+})
+
+// get all reviews by userId and populate with the User Data
+// router.get("/:reviewId", async (req, res) => {
+//     ReviewModel.findById(req.params.reviewId)
+//     .populate("User")
+//     try {
+
+//     } catch (err) {
+        
+//     }
+// })
+
 module.exports = router;
